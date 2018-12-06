@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -120,3 +122,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+)
+
+#GOOGLE_OAUTH2_CLIENT_ID = '514700747796-oprvdjoq4d3fkj6aroeu68s7e66q4nnj.apps.googleusercontent.com'
+#GOOGLE_OAUTH2_CLIENT_SECRET = 'C-zyq38pwcRu9up8w8Bt15yp'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '514700747796-oprvdjoq4d3fkj6aroeu68s7e66q4nnj.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'C-zyq38pwcRu9up8w8Bt15yp'
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '6774700'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = '4qGrPwWPiKBZHlKWhQHu'
+
+SOCIAL_AUTH_PIPELINE = (
+        'social_core.pipeline.social_auth.associate_by_email',
+)
