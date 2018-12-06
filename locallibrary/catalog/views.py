@@ -11,6 +11,8 @@ import datetime
 from .models import *
 from .forms import *
 
+import vk
+
 
 def index(request):
     num_books = Book.objects.all().count()
@@ -21,6 +23,13 @@ def index(request):
     num_direct_book = Book.objects.filter(title__icontains='dune').count()
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
+    session = vk.Session(access_token='9c313cdad88e4dd82bfe275a48a22dad9017d3ac8f1121cfabe68c62989c13517f005e2de897b3d4b0a09')
+    api = vk.API(session, v='5.92')
+    #api.wall.post(message="Hello, world")
+    friends_list = (api.friends.get(user_id='520231271')['items']) #users.get(user_ids=1)) #
+    print(friends_list)
+    for i in friends_list:
+        print(api.users.get(user_ids=i))
     context = {
         'num_books': num_books,
         'num_instances': num_instances,
@@ -39,7 +48,7 @@ class AuthorListView(generic.ListView):
 
     def get_queryset(self):
         return Author.objects.all()
-    
+
 
 class AuthorDetailView(generic.DetailView):
     model = Author
@@ -51,7 +60,7 @@ class BookListView(generic.ListView):
 
     def get_queryset(self):
         return Book.objects.all()
-    
+
     def get_context_data(self, **kwargs):
         context = super(BookListView, self).get_context_data(**kwargs)
         context['some_data'] = 'This is some data'
@@ -69,7 +78,7 @@ class BookDetailView(generic.DetailView):
 #         raise Http404("Book does not exist")
 
 #     #book_id=get_object_or_404(Book, pk=pk)
-    
+
 #     return render(
 #         request,
 #         'catalog/book_detail.html',
@@ -139,10 +148,10 @@ class BookUpdate(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Book
     fields = '__all__'
     permission_required = 'catalog.can_mark_returned'
-    
+
 
 
 class BookDelete(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Book
-    permission_required = 'catalog.can_mark_returned'    
+    permission_required = 'catalog.can_mark_returned'
     success_url = reverse_lazy('books')
