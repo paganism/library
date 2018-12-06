@@ -37,4 +37,5 @@
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 <p>    <a href="{% url 'social:begin' 'google-oauth2' %}"><img src="/static/lgoogle.png" class="avatar-3" data-toggle="tooltip" title="Login via Google+">Login via Google</a></p>
 <a href="/login/vk-oauth2"><img src="/static/lvk.png" class="avatar-3" data-toggle="tooltip" title="Login via VKontakte">Login via VK</a>
+{{  user.is_authenticated }}
 {% endblock %}

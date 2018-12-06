@@ -25,7 +25,7 @@ SECRET_KEY = '%gd8mll(o7ad0^y-ok9+ba62trds0@xtl9+-oo0u!ta()_o8+j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['soauth18.ru', '127.0.0.1']
 
 
 # Application definition
