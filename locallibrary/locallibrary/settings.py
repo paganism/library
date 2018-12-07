@@ -51,6 +51,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+MIDDLEWARE_CLASSES = (
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)
+
+
 ROOT_URLCONF = 'locallibrary.urls'
 
 TEMPLATES = [
@@ -152,3 +160,6 @@ SOCIAL_AUTH_PIPELINE = (
 SOCIAL_AUTH_RAISE_EXCEPTIONS = True
 SOCIAL_AUTH_RAISE_EXCEPTIONS = True
 RAISE_EXCEPTIONS = True
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
